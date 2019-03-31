@@ -5,14 +5,9 @@ import Core.Message;
 import Core.Messager;
 
 import javax.swing.*;
-import javax.accessibility.AccessibleContext;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.net.Socket;
 import java.util.List;
-import java.util.Scanner;
 
 public class MainFrame extends JFrame {
 
