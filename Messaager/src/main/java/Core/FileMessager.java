@@ -91,7 +91,7 @@ public class FileMessager implements Messager {
                 System.out.println(realPath);
 
                 try {
-                    Thread.sleep(600);
+                    Thread.sleep(700);
                     Message message = getMessage(realPath.toFile());
                     if (message != null) resultList.add(message);
                 } catch (WrongClassReadFileException | ReadFileMessageFallException x) {
