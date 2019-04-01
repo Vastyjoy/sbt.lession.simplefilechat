@@ -53,7 +53,7 @@ public class MessagingSystem {
     protected void registrInDirectory() throws IOException {
 
         for (Path path : inDirectory) {
-            System.out.println(path);
+            System.out.println(path.toAbsolutePath());
             path.toAbsolutePath().register(watchService, ENTRY_CREATE);
         }
     }
