@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="inputFile" class="java.io.File">
+        <constructor-arg index="0" value="indir1"/>
+    </bean>
+
+    <bean id="outputFile" class="java.io.File">
+        <constructor-arg index="0" value="outdir1"/>
+    </bean>
+
+    <bean id="FileMessager" class="Core.FileMessager">
+        <constructor-arg index="0" ref="inputFile"/>
+        <constructor-arg index="1" ref="outputFile"/>
+    </bean>
+
+    <bean id="MainFrame" class="GUI.MainFrame">
+        <constructor-arg index="0" ref="FileMessager"/>
+    </bean>
+
+</beans>

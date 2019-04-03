@@ -115,6 +115,7 @@ public class MainFrame extends JFrame {
             }
         });
         // отображаем форму
+        thread.setDaemon(true);
         setVisible(true);
         thread.start();
     }

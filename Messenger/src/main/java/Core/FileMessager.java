@@ -19,6 +19,7 @@ public class FileMessager implements Messager {
     private final WatchService watchService = FileSystems.getDefault().newWatchService();
 
 
+
     public FileMessager(File inputDirectory, File outputDirectory) throws IOException, FileIsNotDirectoryException {
 
         if (!inputDirectory.exists()) inputDirectory.mkdir();
@@ -106,28 +107,5 @@ public class FileMessager implements Messager {
     }
 
 
-    public static void main(String[] args) {
-        try {
-            File infile = new File("C:\\Users\\Alex\\IdeaProjects\\SimpleChat\\inDir");
-            File outfile = new File("C:\\Users\\Alex\\IdeaProjects\\SimpleChat\\outDir1");
-            FileMessager fileMessager = new FileMessager(infile, outfile);
-            Message sendMessage = new Message("Алексекй", "HelloWorld");
-            Message sendMessage2 = new Message("Алексекей1", "HelloWorld");
-            Message sendMessage3 = new Message("Алексекй2", "HelloWorld");
-            Message sendMessage4 = new Message("Алексекй3", "HelloWorld");
-            Message sendMessage5 = new Message("Алексекй4", "HelloWorld");
-            fileMessager.sendMessage(sendMessage);
-            fileMessager.sendMessage(sendMessage2);
-            fileMessager.sendMessage(sendMessage3);
-            fileMessager.sendMessage(sendMessage4);
-            fileMessager.sendMessage(sendMessage5);
 
-            for(;;){
-                List<Message> getMessage = fileMessager.getMessages();
-                getMessage.forEach(System.out::println);
-            }
-        } catch (Exception x) {
-            x.printStackTrace();
-        }
-    }
 }
