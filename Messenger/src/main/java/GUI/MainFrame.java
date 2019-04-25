@@ -11,23 +11,22 @@ import java.util.List;
 
 public class MainFrame extends JFrame {
 
+    private String userName;
     Messager messager;
     private JTextField jtfMessage;
-    private JTextField jtfName;
+    private JLabel jtfName;
     private JTextArea jtaTextAreaMessage;
-    // имя клиента
-    private String clientName = "";
+
 
     // получаем имя клиента
     public String getClientName() {
-        return this.clientName;
+        return this.userName;
     }
 
 
     // конструктор
-    public MainFrame(Messager messager) {
-
-        this.clientName = clientName;
+    public MainFrame(String userName, Messager messager) {
+        this.userName = userName;
         this.messager = messager;
 
         // Задаём настройки элементов на форме
@@ -46,16 +45,15 @@ public class MainFrame extends JFrame {
         bottomPanel.add(jbSendMessage, BorderLayout.EAST);
         jtfMessage = new JTextField("Введите ваше сообщение: ");
         bottomPanel.add(jtfMessage, BorderLayout.CENTER);
-        jtfName = new JTextField("Введите ваше имя: ");
-        bottomPanel.add(jtfName, BorderLayout.WEST);
+        jtfName = new JLabel("Ваш никнейм:" + userName);
+        add(jtfName, BorderLayout.NORTH);
 
         // обработчик события нажатия кнопки отправки сообщения
         jbSendMessage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // если имя клиента, и сообщение непустые, то отправляем сообщение
-                if (!jtfMessage.getText().trim().isEmpty() && !jtfName.getText().trim().isEmpty()) {
-                    clientName = jtfName.getText();
+                if (!jtfMessage.getText().trim().isEmpty()) {
                     try {
                         sendMsg();
                     } catch (CreateFileMessageFallException e1) {
@@ -75,16 +73,9 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // при фокусе поле имя очищается
-        jtfName.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                jtfName.setText("");
-            }
-        });
 
         // в отдельном потоке начинаем работу с сервером
-        Thread thread=new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -93,7 +84,7 @@ public class MainFrame extends JFrame {
                         // если есть входящее сообщение
                         System.err.println("Пытаемся получить сообщения");
                         List<Message> list = messager.getMessages();
-                        System.err.println("получили сообщения:"+list.size());
+                        System.err.println("получили сообщения:" + list.size());
 
                         for (Message msg : list) {
                             jtaTextAreaMessage.append(msg.toString());
@@ -114,17 +105,15 @@ public class MainFrame extends JFrame {
 
             }
         });
+
         // отображаем форму
         thread.setDaemon(true);
         setVisible(true);
         thread.start();
     }
 
-    // отправка сообщения
-    public void sendMsg() throws CreateFileMessageFallException {
-        // формируем сообщение для отправки на сервер
-        Message message = new Message(clientName, jtfMessage.getText());
-        // отправляем сообщение
+    private void sendMsg() throws CreateFileMessageFallException {
+        Message message = new Message(userName, jtfMessage.getText());
         messager.sendMessage(message);
         jtfMessage.setText("");
     }

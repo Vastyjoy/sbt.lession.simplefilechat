@@ -18,7 +18,8 @@
     </bean>
 
     <bean id="MainFrame" class="GUI.MainFrame">
-        <constructor-arg index="0" ref="FileMessager"/>
+        <constructor-arg index="0" value="SecondWindow"/>
+        <constructor-arg index="1" ref="FileMessager"/>
     </bean>
 
 </beans>

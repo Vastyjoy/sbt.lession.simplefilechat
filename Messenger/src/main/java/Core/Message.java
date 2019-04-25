@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
 
 public class Message implements Serializable {
-
+    static final long SerialVersionUID = 1234;
     private String userName;
     private LocalDateTime date;
     private String message;
@@ -27,16 +27,18 @@ public class Message implements Serializable {
     public String getMessage() {
         return message;
     }
-    public String getSerName(){
-        String dateStr=date.toString();
-        dateStr=dateStr.replaceAll(":","-");
-        return userName+'-'+dateStr+'-'+message;
+
+    public String getSerName() {
+        String dateStr = date.toString();
+        dateStr = dateStr.replaceAll(":", "-");
+        return userName + '-' + dateStr + '-' + message;
     }
+
     @Override
     public String toString() {
         return "Message:" +
                 " " + date +
                 " " + userName +
-                " : " + message+'\n';
+                " : " + message + '\n';
     }
 }

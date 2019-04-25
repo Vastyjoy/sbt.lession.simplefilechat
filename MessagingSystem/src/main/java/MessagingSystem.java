@@ -70,10 +70,10 @@ public class MessagingSystem {
         for (WatchEvent event : key.pollEvents()) {
             if (event.kind() == ENTRY_CREATE) {
                 Path eventPath = ((WatchEvent<Path>) event).context();
-                for (Path inPath: inDirectory){
-                    Path child=inPath.resolve(eventPath);
+                for (Path inPath : inDirectory) {
+                    Path child = inPath.resolve(eventPath);
                     File file = new File(child.toAbsolutePath().toString());
-                    if(file.exists())
+                    if (file.exists())
                         files.add(file);
                 }
             }
@@ -82,11 +82,14 @@ public class MessagingSystem {
 
         return files;
     }
-    protected void copyFile(){
+
+    protected void copyFile() {
 
     }
+
     /**
      * Блокирующий метод. Запускает систему копирования из директорий in в директорию out;
+     *
      * @throws ServiceStarted
      * @throws IOException
      * @throws InterruptedException
@@ -94,12 +97,12 @@ public class MessagingSystem {
     public void startSystem() throws ServiceStarted, IOException, InterruptedException {
         if (isStart) throw new ServiceStarted("Система уже запущена.");
         registrInDirectory();
-        for(;;) {
-            List<File> files=getCreatedFile();
-            for(File inFile: files){
-                for(Path outPath:outDirectory){
-                    File outFile=Paths.get(outPath.toAbsolutePath()+"\\"+inFile.getName()).toFile();
-                    Files.copy(inFile.toPath(),outFile.toPath());
+        for (; ; ) {
+            List<File> files = getCreatedFile();
+            for (File inFile : files) {
+                for (Path outPath : outDirectory) {
+                    File outFile = Paths.get(outPath.toAbsolutePath() + "\\" + inFile.getName()).toFile();
+                    Files.copy(inFile.toPath(), outFile.toPath());
                 }
             }
         }

@@ -7,7 +7,7 @@ import java.io.File;
 
 public class First {
     public static void main(String[] args) {
-        ApplicationContext context=new ClassPathXmlApplicationContext("/firstFrameContext.xml");
-        MainFrame mainFrame=(MainFrame) context.getBean("MainFrame");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/firstFrameContext.xml");
+        MainFrame mainFrame = (MainFrame) context.getBean("MainFrame");
     }
 }
